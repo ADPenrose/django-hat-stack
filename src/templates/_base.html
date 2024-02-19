@@ -1,0 +1,47 @@
+<!doctype html>
+<html
+  lang="en"
+  x-data="{ 
+    darkTheme: localStorage.getItem('color-theme') === 'dark' || 
+      (!('color-theme' in localStorage) && 
+      window.matchMedia('(prefers-color-scheme: dark)').matches) 
+  }"
+  x-init="$watch('darkTheme', value => localStorage.setItem('color-theme', value ? 'dark' : 'light'))"
+  x-bind:class="darkTheme && 'dark'"
+  x-cloak
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tailwind-output.css' %}" />
+    {% block styles %} {% endblock %}
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+    <!-- Minified script that imports/initializes several modules. -->
+    <script defer src="{% static 'js/script.js' %}"></script>
+  </head>
+  <!-- Vital for HTMX internal requests that are not GET  -->
+  <!-- prettier-ignore -->
+  <body
+    hx-headers="{&quot;X-CSRFToken&quot;: &quot;{{ csrf_token }}&quot;}"
+    class="dark:bg-gray-700 h-dvh"
+  >
+    {% block content %}{% endblock %}
+    <!-- Flowbite scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <!-- Since this is the base template, this function will be available for all
+		the included components, so no need for a store! -->
+    <script>
+      function toggleDarkTheme() {
+        this.darkTheme = !this.darkTheme;
+        localStorage.setItem("color-theme", this.darkTheme ? "dark" : "light");
+      }
+    </script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

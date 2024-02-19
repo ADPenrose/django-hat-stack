@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- prettier-ignore -->
+{% extends "_base.html" %}
+{% load static %}
+{% block title %}Dashboard{%endblock %}
+{% block content %}
+<!-- Navbar -->
+
+<div class="flex h-full flex-col justify-between">
+  <!-- prettier-ignore -->
+  {% include 'components/_navbar.html' %}
+  {% include "components/_card.html" %}
+  {% include "components/_footer.html" %}
+</div>
+
+{% endblock %}
