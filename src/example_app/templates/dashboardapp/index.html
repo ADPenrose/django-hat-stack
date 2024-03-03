@@ -5,12 +5,10 @@
 {% block title %}Dashboard{%endblock %}
 {% block content %}
 <!-- Navbar -->
-
-<div class="flex h-full flex-col justify-between">
-  <!-- prettier-ignore -->
-  {% include 'components/_navbar.html' %}
-  {% include "components/_card.html" %}
-  {% include "components/_footer.html" %}
+<!-- prettier-ignore -->
+<div class="flex flex-col justify-between h-full">
+{% include 'components/_navbar.html' %}
+{% include "components/_card.html" %}
+{% include "components/_footer.html" %}
 </div>
-
 {% endblock %}
